@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Exec=curl -L https://github.com/the-outcaster/project-reignition-steam-deck/raw/main/project-reignition-steam-deck.sh | sh
+Icon=steamdeck-gaming-return
+Name=Project Reignition Builder
+StartupNotify=false
+Terminal=true
+Type=Application
