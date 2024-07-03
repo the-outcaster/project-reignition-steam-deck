@@ -141,7 +141,7 @@ Choice=$(main_menu)
 	elif [ "$Choice" == "Shortcut" ]; then
 		echo -e "\nFetching icon..."
 		sleep 1
-		wget https://github.com/Kuma-Boo/project-reignition/blob/main/misc/Project%20Reignition%20logo.png
+		wget https://raw.githubusercontent.com/Kuma-Boo/project-reignition/main/misc/Project%20Reignition%20logo.png
 		mv Project\ Reignition\ logo.png icon.png
 		mv icon.png $HOME/Applications/project-reignition/
 
