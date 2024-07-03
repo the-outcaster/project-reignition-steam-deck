@@ -1,7 +1,7 @@
 #!/bin/bash
 
 clear
-echo -e "Project Reignition Steam Deck Builder - script by The Outcaster\n"
+echo -e "Project Reignition Steam Deck Builder - script by The Outcaster"
 title="Project Reignition Steam Deck Builder"
 
 # Removes unhelpful GTK warnings
@@ -67,7 +67,7 @@ Choice=$(main_menu)
 	elif [ "$Choice" == "Download" ]; then
 
 		# check if Godot Flatpak exists, if not install
-		if ! [ -d $HOME/.var/app/org.godotengine.GodotSharp ]; then
+		if ! [ -d $HOME/.local/share/flatpak/app/org.godotengine.GodotSharp ]; then
 			echo -e "\nInstalling Godot..."
 			sleep 1
 			flatpak install --user org.godotengine.GodotSharp -y
@@ -80,6 +80,7 @@ Choice=$(main_menu)
 		version=$(flatpak run org.godotengine.GodotSharp -q --version)
 		godot_version="${version:0:17}"
 		echo -e "\nGodot version is $godot_version"
+		sleep 1
 
 		# check to see if we have the Linux export template
 		if ! [ -f $HOME/.var/app/org.godotengine.GodotSharp/data/godot/export_templates/$godot_version/linux_release.x86_64 ]; then
@@ -108,10 +109,15 @@ Choice=$(main_menu)
 		fi
 
 		# check to see if repo already exists
-		if ! [ -d $HOME/Applications/project-reignition ]; then
+		if ! [ -d $HOME/Applications/project-reignition/.git ]; then
 			echo -e "\nCloning repo..."
 			sleep 1
 			git clone https://github.com/Kuma-Boo/project-reignition.git
+
+			echo -e "\nDownloading export presets..."
+			sleep 1
+			wget https://github.com/the-outcaster/project-reignition-steam-deck/raw/main/export_presets.cfg
+			mv export_presets.cfg $HOME/Applications/project-reignition/Project/
 		else
 			echo -e "\nRepo already exists, checking for any new commits..."
 			sleep 1
@@ -119,11 +125,14 @@ Choice=$(main_menu)
 			git pull
 		fi
 
-		echo -e "\nExporting to Linux..."
-		sleep 1
-		mkdir -p $HOME/Applications/project-reignition-deck-build/
-		flatpak run org.godotengine.GodotSharp --headless --path $HOME/Applications/project-reignition/Project --export-release "Linux/X11" $HOME/Applications/project-reignition-deck-build/project-reignition.x86_64
+		info "Godot will temporarily open to import assets. Ignore any errors."
+		flatpak run org.godotengine.GodotSharp $HOME/Applications/project-reignition/Project/project.godot --import
 
-		info "Project Reignition downloaded and exported!"
+		echo -e "\nExporting..."
+		sleep 1
+		mkdir -p $HOME/Applications/project-reignition/build/
+		flatpak run org.godotengine.GodotSharp --headless $HOME/Applications/project-reignition/Project/project.godot --export-release "Linux/X11" $HOME/Applications/project-reignition/build/project-reignition.x86_64
+
+		info "Project Reignition downloaded/updated!"
 	fi
 done
