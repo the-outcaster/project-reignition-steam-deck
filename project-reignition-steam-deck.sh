@@ -40,7 +40,8 @@ main_menu() {
 	--column ""\
 	--column "Option"\
 	--column="Description"\
-	FALSE Download "Download or update Project Reignition"\
+	FALSE Download "Compile Project Reignition from source (may be buggy!)"\
+	FALSE Pre-Compiled "Download the latest pre-compiled build"\
 	FALSE Changelog "See changelog (your web browser will open)"\
 	FALSE Shortcut "Create a desktop and Application shortcut for Project Reignition"\
 	TRUE Exit "Exit this script"
@@ -135,6 +136,24 @@ Choice=$(main_menu)
 
 		info "Project Reignition downloaded/updated!"
 
+	elif [ "$Choice" == "Pre-Compiled" ]; then
+		echo -e "\nDownloading archive..."
+		sleep 1
+		DOWNLOAD_URL=$(curl -s https://api.github.com/repos/the-outcaster/project-reignition-steam-deck/releases/latest \
+				| grep "browser_download_url" \
+				| grep linux \
+				| cut -d '"' -f 4)
+		curl -L "$DOWNLOAD_URL" -o $HOME/Downloads/project-reignition.zip
+
+		echo -e "\nExtracting..."
+		sleep 1
+		unzip -o $HOME/Downloads/project-reignition.zip -d $HOME/Applications/project-reignition-build/
+
+		echo -e "\nRemoving zip file..."
+		rm $HOME/Downloads/project-reignition.zip
+
+		info "Project Reignition downloaded to $HOME/Applications/project-reignition-build/"
+
 	elif [ "$Choice" == "Changelog" ]; then
 		xdg-open https://github.com/Kuma-Boo/project-reignition/releases
 
@@ -143,7 +162,7 @@ Choice=$(main_menu)
 		sleep 1
 		wget https://raw.githubusercontent.com/Kuma-Boo/project-reignition/main/misc/Project%20Reignition%20logo.png
 		mv Project\ Reignition\ logo.png icon.png
-		mv icon.png $HOME/Applications/project-reignition/
+		mv icon.png $HOME/Applications/project-reignition-build/
 
 		echo -e "\nFetching desktop file..."
 		sleep 1
