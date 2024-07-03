@@ -78,7 +78,7 @@ Choice=$(main_menu)
 
 		# get godot version so we can make the proper dir name
 		version=$(flatpak run org.godotengine.GodotSharp -q --version)
-		godot_version="${version:0:17}"
+		godot_version="${version%*.flathub*}"
 		echo -e "\nGodot version is $godot_version"
 		sleep 1
 
@@ -134,6 +134,7 @@ Choice=$(main_menu)
 		flatpak run org.godotengine.GodotSharp --headless $HOME/Applications/project-reignition/Project/project.godot --export-release "Linux/X11" $HOME/Applications/project-reignition/build/project-reignition.x86_64
 
 		info "Project Reignition downloaded/updated!"
+
 	elif [ "$Choice" == "Changelog" ]; then
 		xdg-open https://github.com/Kuma-Boo/project-reignition/releases
 
@@ -146,7 +147,18 @@ Choice=$(main_menu)
 
 		echo -e "\nFetching desktop file..."
 		sleep 1
-		wget
+		wget https://github.com/the-outcaster/project-reignition-steam-deck/raw/main/project-reignition.desktop
 
+		echo -e "Copying shortcut to desktop..."
+		sleep 1
+		cp project-reignition.desktop $HOME/Desktop/
+
+		echo -e "Copying shortcut to Applications menu..."
+		sleep 1
+		cp project-reignition.desktop $HOME/.local/share/applications/
+
+		rm project-reignition.desktop
+
+		info "Shortcut added!"
 	fi
 done
