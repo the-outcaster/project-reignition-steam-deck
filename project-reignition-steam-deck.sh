@@ -147,12 +147,12 @@ Choice=$(main_menu)
 
 		echo -e "\nExtracting..."
 		sleep 1
-		unzip -o $HOME/Downloads/project-reignition.zip -d $HOME/Applications/project-reignition-build/
+		unzip -o $HOME/Downloads/project-reignition.zip -d $HOME/Applications/
 
 		echo -e "\nRemoving zip file..."
 		rm $HOME/Downloads/project-reignition.zip
 
-		info "Project Reignition downloaded to $HOME/Applications/project-reignition-build/"
+		info "Project Reignition downloaded to $HOME/Applications/project-reignition-linux/"
 
 	elif [ "$Choice" == "Changelog" ]; then
 		xdg-open https://github.com/Kuma-Boo/project-reignition/releases
@@ -162,7 +162,7 @@ Choice=$(main_menu)
 		sleep 1
 		wget https://raw.githubusercontent.com/Kuma-Boo/project-reignition/main/misc/Project%20Reignition%20logo.png
 		mv Project\ Reignition\ logo.png icon.png
-		mv icon.png $HOME/Applications/project-reignition-build/
+		mv icon.png $HOME/Applications/project-reignition-linux/
 
 		echo -e "\nFetching desktop file..."
 		sleep 1
