@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Exec=/home/deck/Applications/project-reignition/build/project-reignition.x86_64
+Icon=/home/deck/Applications/project-reignition/logo.png
+Name=Project Reignition
+StartupNotify=false
+Terminal=false
+Categories=Game;
+Type=Application

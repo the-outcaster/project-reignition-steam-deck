@@ -134,5 +134,19 @@ Choice=$(main_menu)
 		flatpak run org.godotengine.GodotSharp --headless $HOME/Applications/project-reignition/Project/project.godot --export-release "Linux/X11" $HOME/Applications/project-reignition/build/project-reignition.x86_64
 
 		info "Project Reignition downloaded/updated!"
+	elif [ "$Choice" == "Changelog" ]; then
+		xdg-open https://github.com/Kuma-Boo/project-reignition/releases
+
+	elif [ "$Choice" == "Shortcut" ]; then
+		echo -e "\nFetching icon..."
+		sleep 1
+		wget https://github.com/Kuma-Boo/project-reignition/blob/main/misc/Project%20Reignition%20logo.png
+		mv Project\ Reignition\ logo.png icon.png
+		mv icon.png $HOME/Applications/project-reignition/
+
+		echo -e "\nFetching desktop file..."
+		sleep 1
+		wget
+
 	fi
 done
