@@ -147,10 +147,39 @@ Choice=$(main_menu)
 
 		echo -e "\nExtracting..."
 		sleep 1
-		unzip -o $HOME/Downloads/project-reignition.zip -d $HOME/Applications/
+		mkdir -p $HOME/Applications/project-reignition-linux/
+		unzip -o $HOME/Downloads/project-reignition.zip -d $HOME/Applications/project-reignition-linux/
+
+		echo -e "\nRenaming executables..."
+		sleep 1
+		cd $HOME/Applications/project-reignition-linux/
+		mv Sonic\ and\ the\ Secret\ Rings\ Remake.pck project-reignition.pck
+		mv Sonic\ and\ the\ Secret\ Rings\ Remake project-reignition.x86_64
 
 		echo -e "\nRemoving zip file..."
 		rm $HOME/Downloads/project-reignition.zip
+
+		if ( question "Would you like to download the video files? (Download size is ~700 MB)"); then
+		yes |
+			echo -e "\nDownloading video archive..."
+			sleep 1
+			DOWNLOAD_URL=$(curl -s https://api.github.com/repos/the-outcaster/project-reignition-steam-deck/releases/latest \
+					| grep "browser_download_url" \
+					| grep video \
+					| cut -d '"' -f 4)
+			curl -L "$DOWNLOAD_URL" -o $HOME/Downloads/project-reignition-videos.zip
+
+			echo -e "\nExtracting..."
+			sleep 1
+			unzip -o $HOME/Downloads/project-reignition-videos.zip -d $HOME/Applications/project-reignition-linux/
+
+			echo -e "\nCleaning up..."
+			sleep 1
+			rm $HOME/Downloads/project-reignition-videos.zip
+		else
+			echo -e "\nVideo download skipped"
+			sleep 1
+		fi
 
 		info "Project Reignition downloaded to $HOME/Applications/project-reignition-linux/"
 
@@ -160,9 +189,9 @@ Choice=$(main_menu)
 	elif [ "$Choice" == "Shortcut" ]; then
 		echo -e "\nFetching icon..."
 		sleep 1
-		wget https://raw.githubusercontent.com/Kuma-Boo/project-reignition/main/misc/Project%20Reignition%20logo.png
-		mv Project\ Reignition\ logo.png icon.png
-		mv icon.png $HOME/Applications/project-reignition-linux/
+		wget https://cdn2.steamgriddb.com/grid/dfb0f2c6bbb1cc9ae19e65fa4049d1fb.jpg
+		mv dfb0f2c6bbb1cc9ae19e65fa4049d1fb.jpg icon.jpg
+		mv icon.jpg $HOME/Applications/project-reignition-linux/
 
 		echo -e "\nFetching desktop file..."
 		sleep 1

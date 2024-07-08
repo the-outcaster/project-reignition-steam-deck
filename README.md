@@ -5,8 +5,10 @@ Download the [desktop file](https://github.com/the-outcaster/project-reignition-
 - install Project Reignition from source
 - download a pre-compiled build
 - view changelog
-- make a shortcut to the game
+- make a shortcut to the pre-compiled build
 
 ![Project Reignition Steam Deck Builder UI](https://i.imgur.com/eTLnpXl.png)
 
-If you're installing from source, the script will attempt to automate everything for you, but the build may not properly export.
+# Known Issues
+- if you're installing from source, the script will attempt to automate everything for you, but the build may not properly export
+- video quality is bad; this is being worked on by the Project Reignition team

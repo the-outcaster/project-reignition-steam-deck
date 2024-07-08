@@ -1,7 +1,7 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
 Exec=/home/deck/Applications/project-reignition-linux/project-reignition.x86_64
-Icon=/home/deck/Applications/project-reignition-linux/icon.png
+Icon=/home/deck/Applications/project-reignition-linux/icon.jpg
 Name=Project Reignition
 StartupNotify=false
 Terminal=false
